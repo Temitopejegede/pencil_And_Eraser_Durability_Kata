@@ -11,20 +11,20 @@ public class pencil {
 
     public pencil(int length) {
         this.length = length;
-        this.inkLeft = length;
+        this.inkLeft = pencilDurability;
     }
 
-    public pencil(int pencilDurability, int length) {
+    public pencil(int length, int pencilDurability) {
         this.pencilDurability = pencilDurability;
         this.length = length;
-        this.inkLeft = length;
+        this.inkLeft = pencilDurability;
     }
 
     public pencil(int pencilDurability, int length, int eraserDurability) {
         this.pencilDurability = pencilDurability;
         this.length = length;
         this.eraserDurability = eraserDurability;
-        this.inkLeft = length;
+        this.inkLeft = pencilDurability;
     }
 
     public void write(String word){
@@ -56,8 +56,11 @@ public class pencil {
         length--;
     }
 
-    public void erase(){
+    public void erase(String word){
+        String a = "";
+        for(char s: word.toCharArray()) a += " ";
 
+        paper = paper.replace(paper.substring(paper.lastIndexOf(word), paper.lastIndexOf(word)+ word.length()), a);
     }
 
     public int getPencilDurability() {
