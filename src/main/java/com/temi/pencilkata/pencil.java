@@ -7,7 +7,7 @@ public class pencil {
     private int eraserDurability = 5;
     private int eraserLeft = 5;
 
-    private String paper;
+    private String paper = "";
 
     public pencil(int length) {
         this.length = length;
@@ -28,21 +28,24 @@ public class pencil {
     }
 
     public void write(String word){
-        if(inkLeft == 0) paper += word.replaceAll("a-zA-z0-9", " ");
-
-        else if(inkLeft > 0 && inkLeft >= word.length()){
-            char[] ans = word.toCharArray();
-            for(char s: ans){
-                if(Character.isUpperCase(s)){
-                    inkLeft -= 2;
-                } else inkLeft--;
-                paper += s;
-            }
+        if(inkLeft == 0) {
+            paper += word.replaceAll("[A-Za-z0-9]", " ");
+            return;
         }
 
-        else if(inkLeft < word.length()){
-            paper+= word.substring(0, inkLeft -1);
-            paper += word.substring(inkLeft).replaceAll("a-zA-Z0-9", " ");
+        if(inkLeft > 0 && inkLeft >= word.length()){
+            char[] ans = word.toCharArray();
+            for(char s: ans){
+                if(Character.isUpperCase(s)) inkLeft--;
+                inkLeft--;
+                paper += s;
+            }
+            return;
+        }
+
+        if(inkLeft < word.length()){
+            paper+= word.substring(0, inkLeft);
+            paper += word.substring(inkLeft).replaceAll("[A-Za-z0-9]", " ");
             inkLeft = 0;
         }
     }
@@ -57,5 +60,52 @@ public class pencil {
 
     }
 
+    public int getPencilDurability() {
+        return pencilDurability;
+    }
+
+    public void setPencilDurability(int pencilDurability) {
+        this.pencilDurability = pencilDurability;
+    }
+
+    public int getInkLeft() {
+        return inkLeft;
+    }
+
+    public void setInkLeft(int inkLeft) {
+        this.inkLeft = inkLeft;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public void setLength(int length) {
+        this.length = length;
+    }
+
+    public int getEraserDurability() {
+        return eraserDurability;
+    }
+
+    public void setEraserDurability(int eraserDurability) {
+        this.eraserDurability = eraserDurability;
+    }
+
+    public int getEraserLeft() {
+        return eraserLeft;
+    }
+
+    public void setEraserLeft(int eraserLeft) {
+        this.eraserLeft = eraserLeft;
+    }
+
+    public String getPaper() {
+        return paper;
+    }
+
+    public void setPaper(String paper) {
+        this.paper = paper;
+    }
 
 }
