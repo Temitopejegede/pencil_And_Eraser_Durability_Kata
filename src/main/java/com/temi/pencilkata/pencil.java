@@ -57,10 +57,26 @@ public class pencil {
     }
 
     public void erase(String word){
-        String a = "";
-        for(char s: word.toCharArray()) a += " ";
 
-        paper = paper.replace(paper.substring(paper.lastIndexOf(word), paper.lastIndexOf(word)+ word.length()), a);
+        if(eraserDurability == 0) return;
+
+        if(eraserDurability > 0 && eraserDurability < word.length()){
+            word = word.substring(word.length() - eraserDurability);
+            String a = "";
+            for(char s: word.toCharArray()) a+= " ";
+            paper = paper.replace(paper.substring(paper.lastIndexOf(word), paper.lastIndexOf(word)+ word.length()), a);
+            eraserDurability = 0;
+            return;
+        }
+
+        if(eraserDurability >= word.length()){
+            String a = "";
+            for(char s: word.toCharArray()) a += " ";
+
+            paper = paper.replace(paper.substring(paper.lastIndexOf(word), paper.lastIndexOf(word)+ word.length()), a);
+            eraserDurability = eraserDurability - word.length();
+        }
+
     }
 
     public int getPencilDurability() {

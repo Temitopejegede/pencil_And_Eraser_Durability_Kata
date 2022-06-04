@@ -7,6 +7,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PencilTest {
 
+    /**********************************************************************/
+    /*******/                                                      /*******/
+    /*******                  INK TESTS                            /*******/
+    /*******/                                                      /*******/
+    /**********************************************************************/
+
     @Test
     void testPaperAfterWritingWhenInkIsEnough(){
         pencil myPencil = new pencil(20, 20);
@@ -50,6 +56,20 @@ class PencilTest {
     }
 
     @Test
+    void testInkLeftAfterWritingWithNonAlphanumericCharacters(){
+        pencil myPencil = new pencil(20, 45);
+        myPencil.write("hello: my name, is. temi-tope/ jegede");
+        assertEquals(8, myPencil.getInkLeft());
+    }
+
+    /**********************************************************************/
+    /*******/                                                      /*******/
+    /*******                  SHARPENER TESTS                     /*******/
+    /*******/                                                      /*******/
+    /**********************************************************************/
+
+
+    @Test
     void testInkLeftAfterSharpening(){
         pencil myPencil = new pencil(20, 34);
         myPencil.write("hello word happy to be here");
@@ -77,6 +97,12 @@ class PencilTest {
         assertEquals(15, myPencil.getLength());
     }
 
+    /**********************************************************************/
+    /*******/                                                      /*******/
+    /*******                  WRITER TESTS                         /*******/
+    /*******/                                                      /*******/
+    /**********************************************************************/
+
     @Test
     void testWritingWithNonAlphanumericCharacters(){
         pencil myPencil = new pencil(20, 45);
@@ -84,20 +110,14 @@ class PencilTest {
         assertEquals("hello: my name, is. temi-tope/ jegede", myPencil.getPaper());
     }
 
-    @Test
-    void testInkLeftAfterWritingWithNonAlphanumericCharacters(){
-        pencil myPencil = new pencil(20, 45);
-        myPencil.write("hello: my name, is. temi-tope/ jegede");
-        assertEquals(8, myPencil.getInkLeft());
-    }
-
-
 
     /**********************************************************************/
     /*******/                                                      /*******/
     /*******                  ERASER TESTS                         /*******/
     /*******/                                                      /*******/
     /**********************************************************************/
+
+
     @Test
     void testErasingWord(){
         pencil myPencil = new pencil(20, 45);
@@ -107,7 +127,36 @@ class PencilTest {
     }
 
     @Test
-    void testEraserDegradation(){
-
+    void testEraserDegradationWhenEraserIsNotEnough(){
+        pencil myPencil = new pencil(50, 57, 2);
+        myPencil.write("hello world i am home");
+        myPencil.erase("world");
+        assertEquals("hello wor   i am home", myPencil.getPaper());
     }
+
+    @Test
+    void testEraserDurabilityWhenEraserIsNotEnough(){
+        pencil myPencil = new pencil(50, 57, 2);
+        myPencil.write("hello world i am home");
+        myPencil.erase("world");
+        assertEquals(0, myPencil.getEraserDurability());
+    }
+
+    @Test
+    void testEraserDurabilityWhenEraserIsEnough(){
+        pencil myPencil = new pencil(50, 57, 23);
+        myPencil.write("hello world i am home");
+        myPencil.erase("world");
+        assertEquals(18, myPencil.getEraserDurability());
+    }
+
+    @Test
+    void testEraserDurabilityWhenEraserIsEmpty(){
+        pencil myPencil = new pencil(50, 57, 0);
+        myPencil.write("hello world i am home");
+        myPencil.erase("world");
+        assertEquals(0, myPencil.getEraserDurability());
+    }
+
+
 }
