@@ -81,23 +81,21 @@ public class pencil {
 
     public void editPaper(String word){
         int i = getBeginningOfEmptySpace();
+        if(i == paper.length() - 1) return;
         int count = getHowMuchEmptySpaceThereIs();
-//        if(spaceCount >= word.length() ){
-//            paper = paper.replace(paper.substring(hold-1, hold+word.length()), word);
-//        }
+
         StringBuilder wordBuilder = new StringBuilder();
         wordBuilder.append(paper);
 
-        //if(spaceCount >= word.length() ){
-
-
+        if(count >= word.length()){
             int k = 0;
             for(int j = i; j < i + count;j++ ){
                 wordBuilder.setCharAt(j, word.charAt(k));
                 if(k == word.length() - 1) break;
                 k++;
             }
-       // }
+        }
+
 
         paper = wordBuilder.toString();
 

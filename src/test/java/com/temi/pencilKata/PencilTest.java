@@ -189,6 +189,9 @@ class PencilTest {
 
     @Test
     void testEditingWhenThereIsMoreThanEnoughSpace(){
-
+        pencil myPencil = new pencil(50, 57, 0);
+        myPencil.write("hello            i am home");
+        myPencil.editPaper("world");
+        assertEquals("hello world      i am home", myPencil.getPaper());
     }
 }
