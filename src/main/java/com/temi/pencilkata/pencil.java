@@ -80,29 +80,48 @@ public class pencil {
     }
 
     public void editPaper(String word){
+        int i = getBeginningOfEmptySpace();
+        int count = getHowMuchEmptySpaceThereIs();
+//        if(spaceCount >= word.length() ){
+//            paper = paper.replace(paper.substring(hold-1, hold+word.length()), word);
+//        }
+        StringBuilder wordBuilder = new StringBuilder();
+        wordBuilder.append(paper);
+
+        //if(spaceCount >= word.length() ){
+
+
+            int k = 0;
+            for(int j = i; j < i + count;j++ ){
+                wordBuilder.setCharAt(j, word.charAt(k));
+                if(k == word.length() - 1) break;
+                k++;
+            }
+       // }
+
+        paper = wordBuilder.toString();
+
+    }
+
+    public int getBeginningOfEmptySpace(){
         int i;
         for(i = 0; i<= paper.length() - 2; i++){
             if(paper.charAt(i) == ' ' && paper.charAt(i+1) == ' '){
-               break;
+                break;
             }
         }
 
-        i=i+1;
-        if(i == paper.length() - 2) return;
-        
-        int hold = i;
-        int spaceCount = 0;
-        while(paper.charAt(i+1) == ' '){
-            spaceCount++;
-            i++;
+        return i+1;
+    }
+
+    public int getHowMuchEmptySpaceThereIs(){
+        int start = getBeginningOfEmptySpace();
+        int count = 1;
+        while(paper.charAt(start+1) == ' '){
+            count++;
+            start++;
         }
-
-        if(spaceCount >= word.length() ){
-            paper = paper.replace(paper.substring(hold, hold+word.length()), word);
-        }
-
-
-
+        return count - 1;
     }
 
     public int getPencilDurability() {

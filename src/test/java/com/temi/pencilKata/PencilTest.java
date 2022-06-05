@@ -166,10 +166,29 @@ class PencilTest {
 
 
     @Test
+    void testWhereTheEmptySpaceIs(){
+        pencil myPencil = new pencil(50, 57, 0);
+        myPencil.write("hello       i am home");
+        assertEquals(6, myPencil.getBeginningOfEmptySpace());
+    }
+
+    @Test
+    void testHowMuchEmptySpaceThereIs(){
+        pencil myPencil = new pencil(50, 57, 0);
+        myPencil.write("hello       i am home");
+        assertEquals(5, myPencil.getHowMuchEmptySpaceThereIs());
+    }
+
+    @Test
     void testEditingWhenThereIsEnoughSpace(){
         pencil myPencil = new pencil(50, 57, 0);
         myPencil.write("hello       i am home");
         myPencil.editPaper("world");
         assertEquals("hello world i am home", myPencil.getPaper());
+    }
+
+    @Test
+    void testEditingWhenThereIsMoreThanEnoughSpace(){
+
     }
 }
