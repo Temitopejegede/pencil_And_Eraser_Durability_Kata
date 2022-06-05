@@ -13,6 +13,9 @@ class PencilTest {
     /*******/                                                      /*******/
     /**********************************************************************/
 
+    /**
+     *
+     */
     @Test
     void testPaperAfterWritingWhenInkIsEnough(){
         pencil myPencil = new pencil(20, 20);
@@ -20,6 +23,9 @@ class PencilTest {
         assertEquals("I am a nice dude", myPencil.getPaper() );
     }
 
+    /**
+     *
+     */
     @Test
     void testInkLeftWhenInkIsEnough(){
         pencil myPencil = new pencil(20, 20);
@@ -27,13 +33,18 @@ class PencilTest {
         assertEquals(4, myPencil.getInkLeft());
     }
 
+    /**
+     *
+     */
     @Test
     void testInkLeft(){
         pencil myPencil = new pencil(20, 0);
         assertEquals(0, myPencil.getInkLeft());
     }
 
-
+    /**
+     *
+     */
     @Test
     void testPaperAfterWritingWhenInkIsNotEnough(){
         pencil myPencil = new pencil(10, 10);
@@ -41,6 +52,9 @@ class PencilTest {
         assertEquals("i am a nic      ", myPencil.getPaper());
     }
 
+    /**
+     *
+     */
     @Test
     void testPaperAfterWritingWhenThereIsNoInk(){
         pencil myPencil = new pencil(0, 0);
@@ -48,6 +62,9 @@ class PencilTest {
         assertEquals("           ", myPencil.getPaper());
     }
 
+    /**
+     *
+     */
     @Test
     void testInkLeftAfterWriting(){
         pencil myPencil = new pencil(34, 34);
@@ -55,6 +72,9 @@ class PencilTest {
         assertEquals(17, myPencil.getInkLeft());
     }
 
+    /**
+     *
+     */
     @Test
     void testInkLeftAfterWritingWithNonAlphanumericCharacters(){
         pencil myPencil = new pencil(20, 45);
@@ -69,6 +89,9 @@ class PencilTest {
     /**********************************************************************/
 
 
+    /**
+     *
+     */
     @Test
     void testInkLeftAfterSharpening(){
         pencil myPencil = new pencil(20, 34);
@@ -77,6 +100,9 @@ class PencilTest {
         assertEquals(34, myPencil.getInkLeft());
     }
 
+    /**
+     *
+     */
     @Test
     void testLengthAfterSharpening(){
         pencil myPencil = new pencil(20, 34);
@@ -85,6 +111,9 @@ class PencilTest {
         assertEquals(19, myPencil.getLength());
     }
 
+    /**
+     *
+     */
     @Test
     void testLengthAfterSharpeningMultipleTimes(){
         pencil myPencil = new pencil(20, 34);
@@ -103,6 +132,9 @@ class PencilTest {
     /*******/                                                      /*******/
     /**********************************************************************/
 
+    /**
+     *
+     */
     @Test
     void testWritingWithNonAlphanumericCharacters(){
         pencil myPencil = new pencil(20, 45);
@@ -118,6 +150,9 @@ class PencilTest {
     /**********************************************************************/
 
 
+    /**
+     *
+     */
     @Test
     void testErasingWord(){
         pencil myPencil = new pencil(20, 45);
@@ -126,6 +161,9 @@ class PencilTest {
         assertEquals("hello       i am home", myPencil.getPaper());
     }
 
+    /**
+     *
+     */
     @Test
     void testEraserDegradationWhenEraserIsNotEnough(){
         pencil myPencil = new pencil(50, 57, 2);
@@ -134,6 +172,9 @@ class PencilTest {
         assertEquals("hello wor   i am home", myPencil.getPaper());
     }
 
+    /**
+     *
+     */
     @Test
     void testEraserDurabilityWhenEraserIsNotEnough(){
         pencil myPencil = new pencil(50, 57, 2);
@@ -142,6 +183,9 @@ class PencilTest {
         assertEquals(0, myPencil.getEraserDurability());
     }
 
+    /**
+     *
+     */
     @Test
     void testEraserDurabilityWhenEraserIsEnough(){
         pencil myPencil = new pencil(50, 57, 23);
@@ -150,6 +194,9 @@ class PencilTest {
         assertEquals(18, myPencil.getEraserDurability());
     }
 
+    /**
+     *
+     */
     @Test
     void testEraserDurabilityWhenEraserIsEmpty(){
         pencil myPencil = new pencil(50, 57, 0);
@@ -165,6 +212,9 @@ class PencilTest {
     /**********************************************************************/
 
 
+    /**
+     *
+     */
     @Test
     void testWhereTheEmptySpaceIs(){
         pencil myPencil = new pencil(50, 57, 0);
@@ -172,6 +222,19 @@ class PencilTest {
         assertEquals(6, myPencil.getBeginningOfEmptySpace());
     }
 
+    /**
+     *
+     */
+    @Test
+    void IfThereIsNoEmptySpace(){
+        pencil myPencil = new pencil(50, 57, 0);
+        myPencil.write("An onion a day keeps the doctor away");
+        assertEquals(36, myPencil.getBeginningOfEmptySpace());
+    }
+
+    /**
+     *
+     */
     @Test
     void testHowMuchEmptySpaceThereIs(){
         pencil myPencil = new pencil(50, 57, 0);
@@ -179,19 +242,36 @@ class PencilTest {
         assertEquals(5, myPencil.getHowMuchEmptySpaceThereIs());
     }
 
+    /**
+     *
+     */
     @Test
     void testEditingWhenThereIsEnoughSpace(){
         pencil myPencil = new pencil(50, 57, 0);
-        myPencil.write("hello       i am home");
-        myPencil.editPaper("world");
-        assertEquals("hello world i am home", myPencil.getPaper());
+        myPencil.write("An       a day keeps the doctor away");
+        myPencil.editPaper("onion");
+        assertEquals("An onion a day keeps the doctor away", myPencil.getPaper());
     }
 
+    /**
+     *
+     */
     @Test
     void testEditingWhenThereIsMoreThanEnoughSpace(){
         pencil myPencil = new pencil(50, 57, 0);
         myPencil.write("hello            i am home");
         myPencil.editPaper("world");
         assertEquals("hello world      i am home", myPencil.getPaper());
+    }
+
+    /**
+     *
+     */
+    @Test
+    void testEditingWhenThereIsNotEnoughSpace(){
+        pencil myPencil = new pencil(50, 57, 0);
+        myPencil.write("An       a day keeps the doctor away");
+        myPencil.editPaper("artichoke");
+        assertEquals("An artich@k@ay keeps the doctor away", myPencil.getPaper());
     }
 }
