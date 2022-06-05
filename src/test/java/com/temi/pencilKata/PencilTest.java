@@ -158,5 +158,18 @@ class PencilTest {
         assertEquals(0, myPencil.getEraserDurability());
     }
 
+    /**********************************************************************/
+    /*******/                                                      /*******/
+    /*******                  EDITING TESTS                        /*******/
+    /*******/                                                      /*******/
+    /**********************************************************************/
 
+
+    @Test
+    void testEditingWhenThereIsEnoughSpace(){
+        pencil myPencil = new pencil(50, 57, 0);
+        myPencil.write("hello       i am home");
+        myPencil.editPaper("world");
+        assertEquals("hello world i am home", myPencil.getPaper());
+    }
 }

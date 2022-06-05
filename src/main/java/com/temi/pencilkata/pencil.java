@@ -79,6 +79,32 @@ public class pencil {
 
     }
 
+    public void editPaper(String word){
+        int i;
+        for(i = 0; i<= paper.length() - 2; i++){
+            if(paper.charAt(i) == ' ' && paper.charAt(i+1) == ' '){
+               break;
+            }
+        }
+
+        i=i+1;
+        if(i == paper.length() - 2) return;
+        
+        int hold = i;
+        int spaceCount = 0;
+        while(paper.charAt(i+1) == ' '){
+            spaceCount++;
+            i++;
+        }
+
+        if(spaceCount >= word.length() ){
+            paper = paper.replace(paper.substring(hold, hold+word.length()), word);
+        }
+
+
+
+    }
+
     public int getPencilDurability() {
         return pencilDurability;
     }
