@@ -6,7 +6,6 @@ public class pencil {
     private int length;
     private int eraserDurability = 5;
     private int eraserLeft = 5;
-
     private String paper = "";
 
     public pencil(int length) {
@@ -94,10 +93,13 @@ public class pencil {
                 if(k == word.length() - 1) break;
                 k++;
             }
+            paper = wordBuilder.toString();
         }
 
 
-        paper = wordBuilder.toString();
+        if(count < word.length()){
+
+        }
 
     }
 
