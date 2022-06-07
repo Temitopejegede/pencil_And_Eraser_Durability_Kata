@@ -97,9 +97,12 @@ public class pencil {
         this.inkLeft = pencilDurability;
     }
 
-    /**
+    /**A method that accepts a string value and stores the characters contained in the string as long as there is
+     * enough ink to write the characters. If there is not enough ink, blank spaces will be stored in the paper variable.
+     * Each time a lowercase or numeric character is written, the amount of ink goes does by one. If the character
+     * is uppercase, the ink goes down by 2
      *
-     * @param word
+     * @param word The input string that is split into characters and stored in the paper variable
      */
     public void write(String word){
         if(inkLeft == 0) {
@@ -124,7 +127,8 @@ public class pencil {
         }
     }
 
-    /**
+    /**A method that sets the inkLeft back to the maximum but shortens the length of the pencil by 1. if the length
+     * of the pencil is already zero, then it cannot be sharpened anymore.
      *
      */
     public void sharpen(){
@@ -133,9 +137,9 @@ public class pencil {
         length--;
     }
 
-    /**
+    /**A method that replaces the selected characters stored in the paper string with white spaces.
      *
-     * @param word
+     * @param word The input string that is split into characters and stored in the paper variable
      */
     public void erase(String word){
 
@@ -160,9 +164,12 @@ public class pencil {
 
     }
 
-    /**
+    /**A method that places the input characters into the available white space. If number of characters entered is
+     * greater than the available white space, then there will be a collision. For each word that has a collision, the
+     * beginning character of that word is replaced by "@" and the other characters in the word are replaced by the new
+     * characters that have been input
      *
-     * @param word
+     * @param word The input string that is split into characters and stored in the paper variable
      */
     public void editPaper(String word){
         int i = getBeginningOfEmptySpace();
@@ -199,9 +206,9 @@ public class pencil {
 
     }
 
-    /**
+    /**A method to the beginning index of the available empty space in the paper string
      *
-     * @return
+     * @return an integer that specifies where the empty space begins in the paper string
      */
     public int getBeginningOfEmptySpace(){
         int i;
@@ -214,9 +221,10 @@ public class pencil {
         return i+1;
     }
 
-    /**
+    /**A method that returns how much available empty space there in the paper string so words can be written
+     * into it.
      *
-     * @return
+     * @return an integer that represents how much empty space is present in the paper string.
      */
     public int getHowMuchEmptySpaceThereIs(){
         int start = getBeginningOfEmptySpace();
