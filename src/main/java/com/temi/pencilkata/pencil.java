@@ -179,13 +179,14 @@ public class pencil {
                 if(k == word.length() - 1) break;
                 k++;
             }
+            //why not use a String.replace() method and replace all the space with the word?
             paper = wordBuilder.toString();
         }
 
         if(count < word.length()){
             int k = 0;
             for(int j = i; j < i+word.length();j++){
-                if(paper.charAt(j) == ' ' && Character.isLetterOrDigit(paper.charAt(j+1))){
+                if(paper.charAt(j-1) == ' ' && Character.isLetterOrDigit(paper.charAt(j))){
                     wordBuilder.setCharAt(j, '@');
                 }
                 else{
