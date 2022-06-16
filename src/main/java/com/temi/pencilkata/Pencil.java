@@ -4,7 +4,8 @@ package com.temi.pencilkata;
  * A kata prohect to practice Test Driven Development(TDD) by mimicking how the
  * functionalities of a pencil, eraser, and paper.
  */
-public class pencil {
+//Classes should be capitalized in Java
+public class Pencil {
     /**
      * An integer that sets the default durability of the pencil to 10.
      * The durability of the pencil how long it can write without needing to be sharpened
@@ -45,6 +46,13 @@ public class pencil {
      * A string value that stores all the words written by the pencil.
      */
     private String paper = "";
+    /*
+    Conceptually it's weird to me that a pencil would 'own' a piece of paper. What if the next feature was to write on two different papers and check that the durability went down and the papers have the right content?
+
+    I think something like the below lets you separate concerns out a bit better:
+    myPencil.write("I am a nice dude", paper);
+    paper.write(myPencil, "I am a nice dude");
+     */
 
     /**
      * A constructor that creates the pencil object with a custom length value but all other
@@ -52,9 +60,12 @@ public class pencil {
      * @param length the amount of times the pencil can be sharpened before it wears out.
      *               This value goes down 1 each time the pencil is sharpened
      */
-    public pencil(int length) {
+    //I really like your use of multiple constructors. Makes things a lot more convenient!
+
+    //This specific constructor doesn't look used.
+    public Pencil(int length) {
         this.length = length;
-        this.inkLeft = pencilDurability;
+        this.inkLeft = pencilDurability; //Can we make this the default above (in the variable declaration) so that you don't need it in the constructor?
     }
 
     /**
@@ -68,10 +79,8 @@ public class pencil {
      *                         This goes down 2 for every upper case character.
      *                         The value is unchanged if there is a space between words or a new line is printed.
      */
-    public pencil(int length, int pencilDurability) {
-        this.pencilDurability = pencilDurability;
-        this.length = length;
-        this.inkLeft = pencilDurability;
+    public Pencil(int length, int pencilDurability) {
+        this(pencilDurability,length,pencilDurability);
     }
 
     /**
@@ -90,7 +99,7 @@ public class pencil {
      *                         The value of this variable goes down for every character it erases irrespective
      *                         of its case.
      */
-    public pencil(int pencilDurability, int length, int eraserDurability) {
+    public Pencil(int pencilDurability, int length, int eraserDurability) {
         this.pencilDurability = pencilDurability;
         this.length = length;
         this.eraserDurability = eraserDurability;
@@ -104,9 +113,14 @@ public class pencil {
      *
      * @param word The input string that is split into characters and stored in the paper variable
      */
+    //You could remove the paper from the pencil with something like this:
+    //public void write(String word, String paper){
+    //Even better, you could always return a new 'output' string so you're not 'mutating' the paper:
+    //public String write(String word, String paper){
     public void write(String word){
         if(inkLeft == 0) {
-            paper += word.replaceAll("[A-Za-z0-9]", " ");
+            //Per intellij feedback:
+            paper += word.replaceAll("[A-Za-z\\d]", " ");
             return;
         }
 
@@ -120,6 +134,7 @@ public class pencil {
             return;
         }
 
+        //Intellij says this is always true. Might be worth commenting this out and seeing if tests still pass?
         if(inkLeft < word.length()){
             paper+= word.substring(0, inkLeft);
             paper += word.substring(inkLeft).replaceAll("[A-Za-z0-9]", " ");
@@ -142,19 +157,18 @@ public class pencil {
      * @param word The input string that is split into characters and stored in the paper variable
      */
     public void erase(String word){
-
         if(eraserDurability == 0) return;
 
+        //Is there a way you could refactor out the code that's common between these methods?
+        //Perhaps you could break this into finding how much to erase in one step and then erasing in a second step?
         if(eraserDurability > 0 && eraserDurability < word.length()){
             word = word.substring(word.length() - eraserDurability);
             String a = "";
             for(char s: word.toCharArray()) a+= " ";
             paper = paper.replace(paper.substring(paper.lastIndexOf(word), paper.lastIndexOf(word)+ word.length()), a);
             eraserDurability = 0;
-            return;
-        }
-
-        if(eraserDurability >= word.length()){
+            //Using an else if lets you not need an 'early return'.
+        } else if(eraserDurability >= word.length()){
             String a = "";
             for(char s: word.toCharArray()) a += " ";
 
@@ -172,6 +186,9 @@ public class pencil {
      * @param word The input string that is split into characters and stored in the paper variable
      */
     public void editPaper(String word){
+        //You have some nice functions at the top here.
+        //It'd be nice to refactor out the if(count) blocks so they were also functions
+        //That would give you a 'single level of abstraction' which makes the code easier to read
         int i = getBeginningOfEmptySpace();
         if(i == paper.length() - 1) return;
         int count = getHowMuchEmptySpaceThereIs();
@@ -211,6 +228,7 @@ public class pencil {
      * @return an integer that specifies where the empty space begins in the paper string
      */
     public int getBeginningOfEmptySpace(){
+        //Would .indexOf() or .firstIndexOf() make this shorter?
         int i;
         for(i = 0; i<= paper.length() - 2; i++){
             if(paper.charAt(i) == ' ' && paper.charAt(i+1) == ' '){
@@ -226,6 +244,7 @@ public class pencil {
      *
      * @return an integer that represents how much empty space is present in the paper string.
      */
+    //If Paper were a class this could be a member function. It's a bit funky that pencil has a public method for finding the amount of empty space in the paper that it has.
     public int getHowMuchEmptySpaceThereIs(){
         int start = getBeginningOfEmptySpace();
         int count = 1;
@@ -250,6 +269,9 @@ public class pencil {
         return inkLeft;
     }
 
+    //I'm betting you generated all your getters and setters.
+    //In the case you only ever privatly access, it can be clean to get rid of setters like this so external parties don't chang pencil size etc.
+    //In fact, you probably don't need _any_ of these getters and setters if all these properties are ever referenced / changed by the pencil itself
     public void setInkLeft(int inkLeft) {
         this.inkLeft = inkLeft;
     }
@@ -287,3 +309,7 @@ public class pencil {
     }
 
 }
+
+//The fact that even with all the comments this guy is still under 300 lines is pretty nice.
+
+//I generally try to keep all my files less than 300 lines for readability + it usually is a smell I could break things out. I think your file length here is good.
